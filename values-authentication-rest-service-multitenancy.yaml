@@ -1,0 +1,62 @@
+replicaCount: 1
+
+image:
+  repository: ghcr.io/sonamsamdupkhangsar/authentication-rest-service
+  tag: multitenancy
+  pullPolicy: IfNotPresent
+
+imagePullSecrets:
+  - name: github-regcred
+
+nameOverride: ""
+fullnameOverride: "authentication-rest-service"
+
+serviceAccount:
+  create: false
+  annotations: {}
+  name:
+
+service:
+  type: ClusterIP
+  port: 80
+  targetPort: 8080
+
+ingress:
+  enabled: false
+
+httproute:
+  gatewayName: "shared-tls-gateway"
+  namespace: "main"
+  hostnames:
+    - "platform.openissuer.com"
+  httpsListenerName: "https-platform"
+  httpListenerName: "http-platform"
+  pathPrefix: "/authentications"
+
+resources: {}
+
+podSecurityContext: {}
+securityContext: {}
+
+nodeSelector: {}
+tolerations: []
+affinity: {}
+
+postgres:
+  service: authentication-db-rw:5432
+  port: "5432"
+  dbname: authentication
+  secretfile: authentication-db-app
+  postgresUsername: POSTGRES_USERNAME
+  postgresPassword: POSTGRES_PASSWORD
+  postgresDbname: POSTGRES_DBNAME
+
+envs:
+  - name: DB_SSLMODE
+    value: disable
+  - name: OAUTH_AUDIENCES
+    value: oauth-client
+  - name: JWT_SET_URI
+    value: https://platform.openissuer.com/oauth2/jwks
+  - name: SPRING_PROFILES_ACTIVE
+    value: kubernetes

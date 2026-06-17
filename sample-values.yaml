@@ -42,8 +42,22 @@ service:
 istio:
   enabled: false
 
+# In my-app-httproute/values.yaml
+
+appName: "my-service"
+appPort: 8080
+
+httproute:
+  gatewayName: "shared-tls-gateway" # Name of the pre-existing Gateway
+  namespace: "main"      # Namespace of the pre-existing Gateway
+  hostnames:
+    - "bookinfo.openissuer.com"
+  httpsListenerName: "https-bookinfo"   # Listener section name on the Gateway
+  httpListenerName: "http-bookinfo"   # Listener section name on the Gateway
+  pathPrefix: "/details"
+
 ingress:
-  enabled: true
+  enabled: false
   ingressClass: nginx
   hosts:
     - host: subdomain.domain.com
