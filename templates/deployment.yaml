@@ -37,6 +37,24 @@ spec:
               containerPort: 8080
               protocol: TCP
           {{- if .Values.health }}
+          {{- if .Values.health.startup }}
+          startupProbe:
+            httpGet:
+              path: {{ .Values.health.startup.path }}
+              port: {{ .Values.health.startup.port }}
+            {{- if .Values.health.startup.initialDelaySeconds }}
+            initialDelaySeconds: {{ .Values.health.startup.initialDelaySeconds }}
+            {{- end }}
+            {{- if .Values.health.startup.periodSeconds }}
+            periodSeconds: {{ .Values.health.startup.periodSeconds }}
+            {{- end }}
+            {{- if .Values.health.startup.failureThreshold }}
+            failureThreshold: {{ .Values.health.startup.failureThreshold }}
+            {{- end }}
+            {{- if .Values.health.startup.timeoutSeconds }}
+            timeoutSeconds: {{ .Values.health.startup.timeoutSeconds }}
+            {{- end }}
+          {{- end }}
           livenessProbe:                          
             httpGet:
               path: {{ .Values.health.liveness.path }}
@@ -50,6 +68,9 @@ spec:
             {{- if .Values.health.liveness.failureThreshold }}  
             failureThreshold: {{ .Values.health.liveness.failureThreshold }}
             {{- end }}
+            {{- if .Values.health.liveness.timeoutSeconds }}
+            timeoutSeconds: {{ .Values.health.liveness.timeoutSeconds }}
+            {{- end }}
           readinessProbe:
             httpGet:
               path: {{ .Values.health.readiness.path }}
@@ -62,18 +83,21 @@ spec:
             {{- end }}
             {{- if .Values.health.readiness.failureThreshold }}  
             failureThreshold: {{ .Values.health.readiness.failureThreshold }} 
-            {{- end }}              
+            {{- end }}
+            {{- if .Values.health.readiness.timeoutSeconds }}
+            timeoutSeconds: {{ .Values.health.readiness.timeoutSeconds }}
+            {{- end }}
           {{- end }}
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
           env:
           {{- range .Values.envs }}
             - name: {{ .name }}            
-              value: {{ .value | quote }}            
+              value: {{ tpl (.value | toString) $ | quote }}            
           {{- end }}
           {{- range .Values.secretenvs }}
             - name: {{ .name }}            
-              value: {{ .value | quote }}            
+              value: {{ tpl (.value | toString) $ | quote }}            
           {{- end }}
           {{- if .Values.postgres }}
            {{- if .Values.postgres.postgresUsername }}
@@ -108,12 +132,16 @@ spec:
           #add secret key value pair from values file
           {{- range .Values.secretFiles }}
            {{- $fileName := .file }}
+           {{- $fileOptional := .optional }}
            {{- range .keys }}
             - name: {{ .name }}           
               valueFrom:
                 secretKeyRef: 
                     name: {{ $fileName }}
                     key: {{ .key }}
+                    {{- if or $fileOptional .optional }}
+                    optional: true
+                    {{- end }}
            {{- end }}                                     
           {{- end }}            
       {{- with .Values.nodeSelector }}

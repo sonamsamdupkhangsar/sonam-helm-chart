@@ -100,3 +100,21 @@ helm install eds ../../github/sonam-helm-chart -f ../spring-cloud-gateway/discov
 
 
 ```
+
+### Namespace-qualified service values
+
+Environment values support Helm template expressions. This lets an app point to
+services in its own release namespace:
+
+```yaml
+
+envs:
+  - name: USER_REST_SERVICE
+    value: "http://user-rest-service.{{ .Release.Namespace }}.svc.cluster.local"
+  - name: AUTH_SERVER
+    value: "http://authorization-server.{{ .Release.Namespace }}.svc.cluster.local"
+```
+
+Use `.Release.Namespace` for internal service-to-service calls so a release in
+`business1` calls services in `business1`, and a release in `free` calls
+services in `free`.
