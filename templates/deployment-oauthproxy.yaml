@@ -75,13 +75,13 @@ spec:
             {{- toYaml .Values.oauth2proxy.resources | nindent 12 }}
           env:
           {{- range .Values.oauth2proxy.envs }}
-            - name: {{ .name }}            
-              value: {{ .value | quote }}            
-          {{- end }}
+            - name: {{ .name }}
+              value: {{ tpl (.value | toString) $ | quote }}            
+          {{- end }}  
           {{- range .Values.oauth2proxy.secretenvs }}
-            - name: {{ .name }}            
-              value: {{ .value | quote }}            
-          {{- end }}          
+            - name: {{ .name }}
+              value: {{ tpl (.value | toString) $ | quote }}            
+          {{- end }}  
       {{- with .Values.oauth2proxy.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}

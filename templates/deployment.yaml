@@ -93,11 +93,11 @@ spec:
           env:
           {{- range .Values.envs }}
             - name: {{ .name }}            
-              value: {{ .value | quote }}            
+              value: {{ tpl (.value | toString) $ | quote }}            
           {{- end }}
           {{- range .Values.secretenvs }}
             - name: {{ .name }}            
-              value: {{ .value | quote }}            
+              value: {{ tpl (.value | toString) $ | quote }}            
           {{- end }}
           {{- if .Values.postgres }}
            {{- if .Values.postgres.postgresUsername }}
