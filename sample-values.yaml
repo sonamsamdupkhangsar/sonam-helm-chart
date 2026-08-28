@@ -87,6 +87,14 @@ tolerations: []
 
 affinity: {}
 
+# Optional non-secret application configuration. Each map entry becomes a file in a
+# ConfigMap mounted read-only at configMountPath.
+configMountPath: /config
+configFiles: {}
+#  application-policy.yaml: |
+#    example:
+#      enabled: true
+
 postgres:
   port: "5432"
   postgresUsername: PACT_BROKER_DATABASE_USERNAME
