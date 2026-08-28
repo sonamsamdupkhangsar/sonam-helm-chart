@@ -18,6 +18,10 @@ spec:
       labels:
         {{- include "mychart.selectorLabels" . | nindent 8 }}
         app: {{ include "mychart.fullname" . }}
+      {{- with .Values.configFiles }}
+      annotations:
+        checksum/config-files: {{ toYaml . | sha256sum }}
+      {{- end }}
     spec:
     {{- with .Values.imagePullSecrets }}
       imagePullSecrets:
@@ -36,6 +40,12 @@ spec:
             - name: http
               containerPort: 8080
               protocol: TCP
+          {{- with .Values.configFiles }}
+          volumeMounts:
+            - name: application-config
+              mountPath: {{ $.Values.configMountPath | default "/config" | quote }}
+              readOnly: true
+          {{- end }}
           {{- if .Values.health }}
           {{- if .Values.health.startup }}
           startupProbe:
@@ -144,6 +154,12 @@ spec:
                     {{- end }}
            {{- end }}                                     
           {{- end }}            
+      {{- with .Values.configFiles }}
+      volumes:
+        - name: application-config
+          configMap:
+            name: {{ include "mychart.fullname" $ }}-config
+      {{- end }}
       {{- with .Values.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}

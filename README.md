@@ -53,6 +53,26 @@ To remove previous Helm charts under the name 'sonam' `helm repo remove sonam`
 
 Update `Chart.yaml` to bump chart version and application version.
 
+Non-secret application configuration can be supplied as mounted files:
+
+```yaml
+configMountPath: /config
+configFiles:
+  application-policy.yaml: |
+    example:
+      enabled: true
+```
+
+The chart creates a release-specific ConfigMap, mounts it read-only at
+`configMountPath`, and changes the pod-template checksum when the file contents change.
+Applications must opt in to loading the mounted file; for Spring Boot, for example:
+
+```yaml
+envs:
+  - name: SPRING_CONFIG_IMPORT
+    value: optional:file:/config/application-policy.yaml
+```
+
 The following instruction for updating this Helm chart.  Run the following:
 ```
 helm package .
