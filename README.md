@@ -12,6 +12,18 @@ and secret environment variables using GITHUB secrets as envrionment variables s
             --set "secretenvs[1].name=PACT_BROKER_BASIC_AUTH_PASSWORD" --set "secretenvs[1].value=${{ secrets.PACT_BROKER_BASIC_AUTH_PASSWORD }}" \
 ```
 
+Additional environment-specific variables can be appended without replacing an
+application's base `envs` list:
+
+```yaml
+extraEnvs:
+  - name: OPENISSUER_TRUSTED_ISSUERS
+    value: https://platform.openissuer.com/issuer
+```
+
+Both `envs` and `extraEnvs` use the same `name` and `value` structure. Avoid defining
+the same variable name in both lists.
+
 This chart can also support creation of environment variables for a postgres deployment.
 
 

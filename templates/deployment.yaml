@@ -105,6 +105,10 @@ spec:
             - name: {{ .name }}            
               value: {{ tpl (.value | toString) $ | quote }}            
           {{- end }}
+          {{- range .Values.extraEnvs }}
+            - name: {{ .name }}
+              value: {{ tpl (.value | toString) $ | quote }}
+          {{- end }}
           {{- range .Values.secretenvs }}
             - name: {{ .name }}            
               value: {{ tpl (.value | toString) $ | quote }}            

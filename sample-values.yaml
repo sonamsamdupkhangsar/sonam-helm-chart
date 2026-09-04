@@ -109,6 +109,9 @@ envs:
   - name: EUREKA_PASSWORD
     value: $(eureka_password)
 
+# Environment-specific additions that do not replace the base envs list.
+extraEnvs: []
+
 postgres:
   secretfile: myscretfile
 
