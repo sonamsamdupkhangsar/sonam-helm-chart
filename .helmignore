@@ -21,3 +21,6 @@
 .idea/
 *.tmproj
 .vscode/
+# Repository-hosted release artifacts must never be nested in a new chart package.
+*.tgz
+index.yaml
