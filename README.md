@@ -24,6 +24,18 @@ extraEnvs:
 Both `envs` and `extraEnvs` use the same `name` and `value` structure. Avoid defining
 the same variable name in both lists.
 
+Environment overlays can replace existing non-secret variables by name without
+repeating the complete `envs` list:
+
+```yaml
+envOverrides:
+  AUTH_SERVER_CONTEXT_PATH: /issuer
+  ISSUER_URI: https://platform.openissuer.com/issuer
+```
+
+An `envOverrides` entry replaces the same name from `envs` or `extraEnvs`. Do not
+use it to replace variables sourced from Kubernetes Secrets.
+
 This chart can also support creation of environment variables for a postgres deployment.
 
 
