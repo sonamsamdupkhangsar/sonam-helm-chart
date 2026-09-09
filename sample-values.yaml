@@ -112,6 +112,11 @@ envs:
 # Environment-specific additions that do not replace the base envs list.
 extraEnvs: []
 
+# Environment-specific values keyed by variable name. An override replaces a
+# matching entry in envs or extraEnvs and is rendered in stable name order.
+envOverrides: {}
+#  EUREKA_USER: environment-specific-user
+
 postgres:
   secretfile: myscretfile
 

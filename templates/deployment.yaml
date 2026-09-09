@@ -100,14 +100,23 @@ spec:
           {{- end }}
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
+          {{- $envOverrides := .Values.envOverrides | default dict }}
           env:
           {{- range .Values.envs }}
+          {{- if not (hasKey $envOverrides .name) }}
             - name: {{ .name }}            
               value: {{ tpl (.value | toString) $ | quote }}            
           {{- end }}
+          {{- end }}
           {{- range .Values.extraEnvs }}
+          {{- if not (hasKey $envOverrides .name) }}
             - name: {{ .name }}
               value: {{ tpl (.value | toString) $ | quote }}
+          {{- end }}
+          {{- end }}
+          {{- range $name := keys $envOverrides | sortAlpha }}
+            - name: {{ $name }}
+              value: {{ tpl (index $envOverrides $name | toString) $ | quote }}
           {{- end }}
           {{- range .Values.secretenvs }}
             - name: {{ .name }}            
