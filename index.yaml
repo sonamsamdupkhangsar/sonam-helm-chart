@@ -3,7 +3,17 @@ entries:
   mychart:
   - apiVersion: v2
     appVersion: 1.40.0
-    created: "2026-09-05T11:06:00.62303-06:00"
+    created: "2026-09-09T10:28:17.662781-06:00"
+    description: A Helm chart for Kubernetes
+    digest: febc14513080551b8d45ad79be48a87ad8c565dcee882a81a425bc32c382c5ea
+    name: mychart
+    type: application
+    urls:
+    - https://sonamsamdupkhangsar.github.io/sonam-helm-chart/mychart-0.1.32.tgz
+    version: 0.1.32
+  - apiVersion: v2
+    appVersion: 1.40.0
+    created: "2026-09-09T10:28:17.662424-06:00"
     description: A Helm chart for Kubernetes
     digest: ea7448ec9528249d20d2521c52bc978070594e7d842080b849b5cc6165150779
     name: mychart
@@ -13,7 +23,7 @@ entries:
     version: 0.1.31
   - apiVersion: v2
     appVersion: 1.40.0
-    created: "2026-09-05T11:06:00.622763-06:00"
+    created: "2026-09-09T10:28:17.662073-06:00"
     description: A Helm chart for Kubernetes
     digest: 0b6003aa4b95afa7641aadcd2cf57f1c2d8891165aaa1412d55c3222f12fd561
     name: mychart
@@ -23,7 +33,7 @@ entries:
     version: 0.1.30
   - apiVersion: v2
     appVersion: 1.40.0
-    created: "2026-09-05T11:06:00.621358-06:00"
+    created: "2026-09-09T10:28:17.660299-06:00"
     description: A Helm chart for Kubernetes
     digest: 24fed95c1f3e2ed9bb910df906a77f24cd2a23629684484a363bf6a9d5e2c275
     name: mychart
@@ -33,7 +43,7 @@ entries:
     version: 0.1.29
   - apiVersion: v2
     appVersion: 1.40.0
-    created: "2026-09-05T11:06:00.620037-06:00"
+    created: "2026-09-09T10:28:17.658909-06:00"
     description: A Helm chart for Kubernetes
     digest: 23b8c3af6172da50f1fdce084271e75ac2ea7638234d2724c85a0e1b2ffb3505
     name: mychart
@@ -43,7 +53,7 @@ entries:
     version: 0.1.28
   - apiVersion: v2
     appVersion: 1.40.0
-    created: "2026-09-05T11:06:00.618947-06:00"
+    created: "2026-09-09T10:28:17.657136-06:00"
     description: A Helm chart for Kubernetes
     digest: c981c8bdc83c48785dacf8a0db146ac3cd35b7d3cf314e5189e8a74fc718f24a
     name: mychart
@@ -53,7 +63,7 @@ entries:
     version: 0.1.27
   - apiVersion: v2
     appVersion: 1.39.0
-    created: "2026-09-05T11:06:00.617757-06:00"
+    created: "2026-09-09T10:28:17.656062-06:00"
     description: A Helm chart for Kubernetes
     digest: b248eb92510a03a90823da4d76dd99bc7c6cd2ecccb70a22dce05b8f2336a598
     name: mychart
@@ -61,4 +71,4 @@ entries:
     urls:
     - https://sonamsamdupkhangsar.github.io/sonam-helm-chart/mychart-0.1.26.tgz
     version: 0.1.26
-generated: "2026-09-05T11:06:00.617022-06:00"
+generated: "2026-09-09T10:28:17.654974-06:00"
